@@ -98,7 +98,7 @@ vi app/controllers/pages_controller.rb
 
 class PagesController < ApplicationController
      def home
-          @greeting =  "Hello World!"
+          @heythere =  "Hello World!"
      end
 end
 ```
@@ -106,6 +106,6 @@ Change the home action by editing app/views/pages/home.html.erb
 ```
 vi app/views/pages/home.html.erb
 
-<h1><%= @greeting %></h1>
+<h1><%= @heythere %></h1>
 ```
 
