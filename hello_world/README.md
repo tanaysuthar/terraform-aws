@@ -75,4 +75,37 @@ Edit the app/controllers/pages_controller.rb
 vi app/views/pages/home.html.erb
 
 <h1>Hello World!!</h1>
+````
+
+Edit the config/route.rb - root path / will be served by our controller’s home action
+```
+vi config/routes.rb
+
+Rails.application.routes.draw do
+   root to: 'pages#home'
+end
+```
+Access the browser with Public IP of server followed by 9999 
+```
+http://<< Public IP of server >>:9999
+```
+
+We can also perform Hello world!! text being passed to the view from the controller’s action
+
+Edit the app/controllers/pages_controller.rb
+```
+vi app/controllers/pages_controller.rb
+
+class PagesController < ApplicationController
+     def home
+          @greeting =  "Hello World!"
+     end
+end
+```
+Change the home action by editing app/views/pages/home.html.erb
+```
+vi app/views/pages/home.html.erb
+
+<h1><%= @greeting %></h1>
+```
 
