@@ -24,3 +24,55 @@ rvm install 2.6
 ```
 gem install rails
 ```
+
+# Build and Start Hello World Application
+
+## Create a new hello world application by following command
+```
+rails new hello_world
+cd hello_world
+```
+
+## Start the application 
+rails server --binding=0.0.0.0 -p 9999
+
+Let’s create our first controller named pages. From the command line
+```
+rails generate controller pages
+
+Running via Spring preloader in process 1727
+      create  app/controllers/pages_controller.rb
+      invoke  erb
+      create    app/views/pages
+      invoke  test_unit
+      create    test/controllers/pages_controller_test.rb
+      invoke  helper
+      create    app/helpers/pages_helper.rb
+      invoke    test_unit
+      invoke  assets
+      invoke    coffee
+      create      app/assets/javascripts/pages.coffee
+      invoke    scss
+      create      app/assets/stylesheets/pages.scss
+```
+Edit the app/controllers/pages_controller.rb
+
+```
+vi app/controllers/pages_controller.rb
+
+class PagesController < ApplicationController
+     def home
+          puts "Hello World!"
+     end
+end
+
+```
+
+Create a file in this folder with the name home.html.erb under app/views/pages/. The erb extension implies that this file will be processed by Rails in order to embed any dynamic content.
+
+Edit the app/controllers/pages_controller.rb
+```
+vi app/views/pages/home.html.erb
+
+<h1>Hello World!!</h1>
+
