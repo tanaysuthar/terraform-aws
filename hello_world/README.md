@@ -1,6 +1,28 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Hello World Application in Ruby on Rails
 
-![Screenshot](Screen Shot 2019-08-03 at 1.25.45 PM)
+
+#Install pacakge dependencies on CentOS machine
+```
+sudo yum install -y curl gpg gcc gcc-c++ make -y
+Sudo yum install epel-release -y
+Sudo yum install nodejs npm -y
+```
+#Install RVM
+```
+curl -sSL https://rvm.io/mpapis.asc | gpg2 --import -
+curl -sSL https://rvm.io/pkuczynski.asc | gpg2 --import -
+curl -L get.rvm.io | bash -s stable
+source /etc/profile.d/rvm.sh
+rvm reload
+```
+
+#Install Ruby
+```
+rvm install 2.6
+```
+#Install rails
+```
+gem install rails
+```
