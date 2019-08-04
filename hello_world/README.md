@@ -1,5 +1,3 @@
-# README
-
 # Hello World Application in Ruby on Rails
 
 
