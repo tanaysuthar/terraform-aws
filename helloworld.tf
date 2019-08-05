@@ -1,7 +1,7 @@
 provider "aws" {
 	access_key = "aws_access_key_id"
 	secret_key = "aws_secret_access_key_id"
-    region = "us-east-1"
+    	region = "us-east-1"
 }
 
 data "aws_availability_zones" "all" {}
@@ -10,15 +10,10 @@ data "aws_availability_zones" "all" {}
 
 resource "aws_instance" "helloworld" {
 	 ami           			= "${lookup(var.amis,var.region)}"
-	 count         			= "${var.count}"
+	 count         			= "${var.countone}"
 	 key_name      			= "${var.key_name}"
 	 vpc_security_group_ids	= ["${aws_security_group.instance.id}"]
-     instance_type          = "t2.micro"
-
-
-tags {
-	Name = "${format("helloworld-%03d", count.index + 1)}"
-  } 
+         instance_type          = "t2.micro" 
 }
 
 
@@ -30,13 +25,13 @@ resource "aws_security_group" "instance" {
 			from_port  = 9999
 			to_port    = 9999
 			protocol   = "tcp"
-			cidr_block = ["0.0.0.0/0"]
+			cidr_blocks = ["0.0.0.0/0"]
 	}
 	ingress {
 			from_port  = 22
 			to_port    = 22
 			protocol   = "tcp"
-			cidr_block = ["0.0.0.0/0"]
+			cidr_blocks = ["0.0.0.0/0"]
 	}
 }
 
@@ -46,7 +41,7 @@ resource "aws_security_group" "instance" {
 resource "aws_launch_configuration" "helloworld" {
 	image_id		=	"${lookup(var.amis, var.region)}"
 	instance_type   =   "t2.micro"
-	security_group  =   ["${aws_security_group.instance.id}"]
+	security_groups  =   ["${aws_security_group.instance.id}"]
 	key_name        =   "${var.key_name}"
 	user_data    =  <<-EOF
 					#!/bin/sh
@@ -102,17 +97,17 @@ resource "aws_autoscaling_group" "helloworld" {
 
 resource "aws_security_group" "elb" {
 	name = "helloworld-elb"
-    egress {
-        from_port = 0
-    	to_port = 0
-    	protocol = "-1"
-    	cidr_blocks = ["0.0.0.0/0"]
-    }
-    ingress {
-    	from_port = 80
-    	to_port = 80
-    	protocol = "tcp"
-    	cidr_blocks = ["0.0.0.0/0"]
+    	egress {
+        	from_port = 0
+    		to_port = 0
+    		protocol = "-1"
+    		cidr_blocks = ["0.0.0.0/0"]
+    	}
+    	ingress {
+    		from_port = 80
+    		to_port = 80
+    		protocol = "tcp"
+    		cidr_blocks = ["0.0.0.0/0"]
   	}
 }
 
@@ -124,17 +119,16 @@ resource "aws_elb" "helloworld" {
 	security_groups 	= ["${aws_security_group.elb.id}"]
 	availability_zones  = ["${data.aws_availability_zones.all.names}"]
 	health_check   {
-		healthy_threshold 	= 2
+		healthy_threshold = 2
 		unhealthy_threshold = 2
-		timeout				= 3
-        interval            = 5
-        target				= "HTTP:9999/"
+		timeout	= 3
+        	interval = 5
+        	target	= "HTTP:9999/"
 	}
 	listener {
-		lb_port 		  = 80
+		lb_port 	  = 80
 		lb_protocol 	  = "http"
 		instance_port 	  = "9999"
 		instance_protocol = "http"
-    }
+       }  
 }
-
